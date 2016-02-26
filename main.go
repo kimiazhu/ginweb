@@ -22,5 +22,4 @@ func main() {
 	}
 
 	server.Start(":"+Conf.SERVER.PORT, r)
-
 }
