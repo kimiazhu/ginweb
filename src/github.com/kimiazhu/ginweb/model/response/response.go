@@ -1,7 +1,7 @@
 // Description: utils 服务器应答标准结构
 // Author: ZHU HAIHUA
 // Since: 2016-02-26 20:31
-package respose
+package response
 
 import (
 	"encoding/json"

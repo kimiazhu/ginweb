@@ -6,11 +6,11 @@ package apps
 
 import (
 	"github.com/gin-gonic/gin"
-	"conf"
+	. "github.com/kimiazhu/ginweb/conf"
 )
 
 func CheckUpdate(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": conf.Conf,
+		"message": Conf,
 	})
 }
