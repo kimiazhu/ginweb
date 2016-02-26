@@ -4,10 +4,10 @@
 package main
 
 import (
-	"github.com/kimiazhu/ginweb/controller/apps"
 	"github.com/gin-gonic/gin"
-	"github.com/kimiazhu/ginweb/server"
 	. "github.com/kimiazhu/ginweb/conf"
+	"github.com/kimiazhu/ginweb/controller/apps"
+	"github.com/kimiazhu/ginweb/server"
 )
 
 func main() {
@@ -21,6 +21,6 @@ func main() {
 		app.GET("checkupdate", apps.CheckUpdate)
 	}
 
-	server.Start(":" + Conf.SERVER.PORT, r)
+	server.Start(":"+Conf.SERVER.PORT, r)
 
 }
