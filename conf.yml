@@ -1,0 +1,15 @@
+server:
+  runmode: debug #or release
+  port: 8888
+
+database:
+  host: 42.62.96.68
+  name: tako
+  user: tako
+  password: tako
+
+# ext: others configurations, you can put biz config here
+# then retrive by conf.Conf.EXT["key"]
+ext:
+  key: Hello Word!
+  key2: values2

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Please run this batch when first build or run project
+
+go get github.com/gin-gonic/gin
+go get gopkg.in/mgo.v2
+go get github.com/bitly/go-simplejson
+go get -u github.com/kimiazhu/log4go
+go get github.com/fvbock/endless
+go get gopkg.in/yaml.v2
+#go get github.com/ks3sdklib/aws-sdk-go
+#go get github.com/mssola/user_agent
+#go get github.com/nu7hatch/gouuid
