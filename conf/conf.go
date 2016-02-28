@@ -30,11 +30,15 @@ var (
 	Conf = Config{}
 )
 
-func init() {
-	c, err := ioutil.ReadFile("conf.yml")
+func LoadConf(path string) {
+	c, err := ioutil.ReadFile(path)
 	if err != nil {
 		fmt.Fprint(os.Stderr, err)
 		return
 	}
 	yaml.Unmarshal(c, &Conf)
+}
+
+func init() {
+	LoadConf("conf.yml")
 }
