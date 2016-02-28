@@ -11,15 +11,15 @@ import (
 )
 
 func main() {
-	r := gin.New()
+	g := gin.New()
 
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
+	g.Use(AccessLog())
+	g.Use(Recovery())
 
-	app := r.Group("/apps")
+	app := g.Group("/apps")
 	{
-		app.GET("checkupdate", apps.CheckUpdate)
+		app.POST("checkupdate", apps.CheckUpdate)
 	}
 
-	server.Start(":"+Conf.SERVER.PORT, r)
+	server.Start(":"+Conf.SERVER.PORT, g)
 }
