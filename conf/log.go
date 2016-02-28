@@ -4,10 +4,10 @@
 package conf
 
 import (
-	log "github.com/kimiazhu/log4go"
-	"github.com/gin-gonic/gin"
-	"time"
 	"fmt"
+	"github.com/gin-gonic/gin"
+	log "github.com/kimiazhu/log4go"
+	"time"
 )
 
 var (
