@@ -9,12 +9,12 @@ import (
 )
 
 func init() {
-	_server = &serverUnix{}
+	_server = &serverDarwin{}
 }
 
-type serverUnix struct {
+type serverDarwin struct {
 }
 
-func (s *serverUnix) Run(addr string, handler http.Handler) {
+func (s *serverDarwin) Run(addr string, handler http.Handler) {
 	endless.ListenAndServe(addr, handler)
 }
