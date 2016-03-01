@@ -4,7 +4,7 @@
 package model
 
 import (
-	"encoding/json"
+	"github.com/kimiazhu/ginweb/util"
 )
 
 type Response struct {
@@ -15,13 +15,5 @@ type Response struct {
 }
 
 func (r *Response) Dump2Json() string {
-	return Dump2Json(r)
-}
-
-func Dump2Json(obj interface{}) string {
-	result, err := json.Marshal(obj)
-	if err != nil {
-		return ""
-	}
-	return string(result)
+	return util.Dump2Json(r)
 }

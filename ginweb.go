@@ -5,7 +5,7 @@ package ginweb
 
 import (
 	"github.com/gin-gonic/gin"
-	. "github.com/kimiazhu/ginweb/conf"
+	. "github.com/kimiazhu/ginweb/midware"
 	"github.com/kimiazhu/ginweb/server"
 )
 
