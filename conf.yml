@@ -2,7 +2,7 @@
 # you need to redefine your own file under
 # project's root
 server:
-  runmode: debug #or release
+  runmode: debug #or debug/test/release
   port: 8888
 
 database:

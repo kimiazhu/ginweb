@@ -7,15 +7,18 @@ import (
 	"github.com/gin-gonic/gin"
 	. "github.com/kimiazhu/ginweb/midware"
 	"github.com/kimiazhu/ginweb/server"
+	"github.com/kimiazhu/ginweb/conf"
 )
 
 const VERSION = "0.0.1"
 
 func New() *gin.Engine {
+	gin.SetMode(conf.Conf.SERVER.RUNMODE)
 	g := gin.New()
 
-	g.Use(AccessLog())
+
 	g.Use(Recovery())
+	g.Use(AccessLog())
 	return g
 }
 
