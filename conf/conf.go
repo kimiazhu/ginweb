@@ -39,6 +39,21 @@ func LoadConf(path string) {
 	yaml.Unmarshal(c, &Conf)
 }
 
+func ExtString(key string, defVal... string) (val string, err error) {
+	if v := Conf.EXT[key]; v != "" {
+		val = fmt.Sprintf("%v", v)
+		return
+	}
+
+	if len(defVal) > 0 {
+		val = defVal[0]
+		return
+	}
+
+	err = fmt.Errorf("no such key[%s] and no default value provided", key)
+	return
+}
+
 func init() {
 	LoadConf("conf.yml")
 }
