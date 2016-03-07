@@ -8,20 +8,43 @@ import (
 	. "github.com/kimiazhu/ginweb/midware"
 	"github.com/kimiazhu/ginweb/server"
 	"github.com/kimiazhu/ginweb/conf"
+	"github.com/kimiazhu/log4go"
 )
 
 const VERSION = "0.0.1"
 
+// an component is different from midware,
+// it will be initialize just before the
+// application running, You can use it in
+// the entire life cycle of application
+type component struct {
+	name string
+	config interface{}
+	initialize func(config interface{}) (error)
+}
+
+var components []component
+
 func New() *gin.Engine {
 	gin.SetMode(conf.Conf.SERVER.RUNMODE)
 	g := gin.New()
-
-
 	g.Use(Recovery())
 	g.Use(AccessLog())
 	return g
 }
 
+func RegisterComponent(name string, config interface{}, initialize func(config interface{}) (error))  {
+	components = append(components, component{name, config, initialize})
+}
+
 func Run(port string, engin *gin.Engine) {
+	for _, c := range components {
+		e := c.initialize(c.config)
+		if e != nil {
+			log4go.Error("initialize component [%s] error! %v", c.name, e)
+		} else {
+			log4go.Debug("initialize component [%s] success", c.name)
+		}
+	}
 	server.Start(":"+port, engin)
 }
