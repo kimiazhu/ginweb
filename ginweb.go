@@ -9,6 +9,7 @@ import (
 	"github.com/kimiazhu/ginweb/server"
 	"github.com/kimiazhu/ginweb/conf"
 	"github.com/kimiazhu/log4go"
+	"sync"
 )
 
 const VERSION = "0.0.1"
@@ -23,6 +24,7 @@ type component struct {
 	initialize func(config interface{}) (error)
 }
 
+var initCompOnce sync.Once
 var components []component
 
 func New() *gin.Engine {
@@ -38,7 +40,7 @@ func RegisterComponent(name string, config interface{}, initialize func(config i
 }
 
 func Run(port string, engin *gin.Engine) {
-	initialize()
+	initCompOnce.Do(initialize)
 	server.Start(":"+port, engin)
 }
 
