@@ -14,10 +14,10 @@ import (
 
 const VERSION = "0.0.1"
 
-// an component is different from midware,
+// a component is different from middleware,
 // it will be initialize just before the
-// application running, You can use it in
-// the entire life cycle of application
+// application running, then you can use it in
+// the entire life-cycle of the application
 type component struct {
 	name string
 	config interface{}
