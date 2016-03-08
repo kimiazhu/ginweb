@@ -38,6 +38,12 @@ func RegisterComponent(name string, config interface{}, initialize func(config i
 }
 
 func Run(port string, engin *gin.Engine) {
+	initialize()
+	server.Start(":"+port, engin)
+}
+
+// initialize used to init all components before the app start
+func initialize() {
 	for _, c := range components {
 		e := c.initialize(c.config)
 		if e != nil {
@@ -46,5 +52,4 @@ func Run(port string, engin *gin.Engine) {
 			log4go.Debug("initialize component [%s] success", c.name)
 		}
 	}
-	server.Start(":"+port, engin)
 }
