@@ -4,23 +4,19 @@
 package param
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
 
 // MustInt try to extract value from request param by the givin key,
-// if failed will raise a panic
-func MustInt(c *gin.Context, key string) int {
-	if strv := c.Param(key); strv != "" {
-		v, e := strconv.Atoi(strv)
-		if e != nil {
-			panic(e)
-		}
-		return v
-	} else {
-		panic(fmt.Sprintf("cannot get value of param [%s]", key))
+// if failed will return the default value
+func MustInt(c *gin.Context, key string, defaultValue int) int {
+	strv := c.Param(key)
+	v, e := strconv.Atoi(strv)
+	if e != nil {
+		v = defaultValue
 	}
+	return v
 }
 
 // Int try to extract value from request param by the givin key,
