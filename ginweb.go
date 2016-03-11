@@ -10,6 +10,7 @@ import (
 	"github.com/kimiazhu/ginweb/conf"
 	"github.com/kimiazhu/log4go"
 	"sync"
+	"time"
 )
 
 const VERSION = "0.0.1"
@@ -22,6 +23,7 @@ type component struct {
 	name string
 	config interface{}
 	initialize func(config interface{}) (error)
+	delay, interval time.Duration
 }
 
 var initCompOnce sync.Once
@@ -36,7 +38,11 @@ func New() *gin.Engine {
 }
 
 func RegisterComponent(name string, config interface{}, initialize func(config interface{}) (error))  {
-	components = append(components, component{name, config, initialize})
+	components = append(components, component{name, config, initialize, 0, 0})
+}
+
+func RegisterComponentScheduler(name string, initialize func(config interface{}) (error), config interface{}, delay, interval time.Duration) {
+	components = append(components, component{name, config, initialize, delay, interval})
 }
 
 func Run(port string, engin *gin.Engine) {
