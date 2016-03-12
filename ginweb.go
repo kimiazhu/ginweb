@@ -41,6 +41,7 @@ func RegisterComponent(name string, config interface{}, initialize func(config i
 	components = append(components, component{name, config, initialize, 0, 0})
 }
 
+// TODO: DO NOT USE!!
 func RegisterComponentScheduler(name string, initialize func(config interface{}) (error), config interface{}, delay, interval time.Duration) {
 	components = append(components, component{name, config, initialize, delay, interval})
 }
