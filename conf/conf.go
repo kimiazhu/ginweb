@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"reflect"
 )
 
 type Config struct {
@@ -31,7 +32,7 @@ type Config struct {
 // separated by DOT(.). If you provide a default value, this method
 // will return the it while the key cannot be found. otherwise it
 // will raise a panic!
-func (c *Config) Ext(keys string, defaultVal... string) (string) {
+func (c *Config) Ext(keys string, defaultVal... interface{}) (interface{}) {
 	r, e := c.ExtSep(keys, ".")
 	if e != nil {
 		if len(defaultVal) > 0 {
@@ -44,9 +45,45 @@ func (c *Config) Ext(keys string, defaultVal... string) (string) {
 	}
 }
 
+func (c *Config) ExtString(keys string, defaultVal... interface{}) (string) {
+	return c.Ext(keys, defaultVal...).(string)
+}
+
+func (c *Config) ExtInt(keys string, defaultVal... interface{}) (int) {
+	return c.Ext(keys, defaultVal...).(int)
+}
+
+func (c *Config) ExtInt8(keys string, defaultVal... interface{}) (int8) {
+	return c.Ext(keys, defaultVal...).(int8)
+}
+
+func (c *Config) ExtInt16(keys string, defaultVal... interface{}) (int16) {
+	return c.Ext(keys, defaultVal...).(int16)
+}
+
+func (c *Config) ExtInt32(keys string, defaultVal... interface{}) (int32) {
+	return c.Ext(keys, defaultVal...).(int32)
+}
+
+func (c *Config) ExtInt64(keys string, defaultVal... interface{}) (int64) {
+	return c.Ext(keys, defaultVal...).(int64)
+}
+
+func (c *Config) ExtIntBool(keys string, defaultVal... interface{}) (bool) {
+	return c.Ext(keys, defaultVal...).(bool)
+}
+
+func (c *Config) ExtFloat64(keys string, defaultVal... interface{}) (float64) {
+	return c.Ext(keys, defaultVal...).(float64)
+}
+
+func (c *Config) ExtFloat32(keys string, defaultVal... interface{}) (float32) {
+	return c.Ext(keys, defaultVal...).(float32)
+}
+
 // Ext will return the value of the EXT config, the keys is separated
 // by the given sep string.
-func (c *Config) ExtSep(keys, sep string) (string, error) {
+func (c *Config) ExtSep(keys, sep string) (interface{}, error) {
 	ks := strings.Split(keys, sep);
 	var result interface{}
 	var isFinal, success bool
@@ -56,7 +93,7 @@ func (c *Config) ExtSep(keys, sep string) (string, error) {
 		if !success {
 			return "", fmt.Errorf("no such key: %v", k)
 		} else if isFinal {
-			return result.(string), nil
+			return result, nil
 		}
 	}
 	return "", fmt.Errorf("not found")
@@ -67,11 +104,11 @@ func find(v interface{}, key interface{}) (result interface{}, isFinal, success 
 	case map[string]interface{}:
 		result = m[key.(string)]
 		success = true
-		_, isFinal = result.(string)
+		isFinal = (reflect.TypeOf(result) != nil && reflect.TypeOf(result).Kind() != reflect.Map)
 	case map[interface{}]interface{}:
 		result = m[key]
 		success = true
-		_, isFinal = result.(string)
+		isFinal = (reflect.TypeOf(result) != nil && reflect.TypeOf(result).Kind() != reflect.Map)
 	}
 	return
 }
