@@ -69,7 +69,7 @@ func (c *Config) ExtInt64(keys string, defaultVal... interface{}) (int64) {
 	return c.Ext(keys, defaultVal...).(int64)
 }
 
-func (c *Config) ExtIntBool(keys string, defaultVal... interface{}) (bool) {
+func (c *Config) ExtBool(keys string, defaultVal... interface{}) (bool) {
 	return c.Ext(keys, defaultVal...).(bool)
 }
 
@@ -126,20 +126,55 @@ func LoadConf(path string) {
 	yaml.Unmarshal(c, &Conf)
 }
 
-func ExtString(key string, defVal... string) (val string, err error) {
-	if v := Conf.EXT[key]; v != "" {
-		val = fmt.Sprintf("%v", v)
-		return
-	}
-
-	if len(defVal) > 0 {
-		val = defVal[0]
-		return
-	}
-
-	err = fmt.Errorf("no such key[%s] and no default value provided", key)
-	return
+func Ext(keys string, defVal... interface{}) interface {}{
+	return Conf.Ext(keys, defVal...)
 }
+
+// ExtString is a shorcut for (c *Config) ExtString()
+func ExtString(keys string, defVal... interface{}) string {
+	return Conf.ExtString(keys, defVal...)
+}
+
+// ExtBool is a shorcut for (c *Config) ExtBool()
+func ExtBool(keys string, defVal... interface{}) bool {
+	return Conf.ExtBool(keys, defVal...)
+}
+
+// ExtInt is a shorcut for (c *Config) ExtInt()
+func ExtInt(keys string, defVal... interface{}) int {
+	return Conf.ExtInt(keys, defVal...)
+}
+
+// ExtInt8 is a shorcut for (c *Config) ExtInt8()
+func ExtInt8(keys string, defVal... interface{}) int8 {
+	return Conf.ExtInt8(keys, defVal...)
+}
+
+// ExtInt16 is a shorcut for (c *Config) ExtInt16()
+func ExtInt16(keys string, defVal... interface{}) int16 {
+	return Conf.ExtInt16(keys, defVal...)
+}
+
+// ExtInt32 is a shorcut for (c *Config) ExtInt32()
+func ExtInt32(keys string, defVal... interface{}) int32 {
+	return Conf.ExtInt32(keys, defVal...)
+}
+
+// ExtInt64 is a shorcut for (c *Config) ExtInt64()
+func ExtInt64(keys string, defVal... interface{}) int64 {
+	return Conf.ExtInt64(keys, defVal...)
+}
+
+// ExtFloat32 is a shorcut for (c *Config) ExtFloat32()
+func ExtFloat32(keys string, defVal... interface{}) float32 {
+	return Conf.ExtFloat32(keys, defVal...)
+}
+
+// ExtFloat64 is a shorcut for (c *Config) ExtFloat64()
+func ExtFloat64(keys string, defVal... interface{}) float64 {
+	return Conf.ExtFloat64(keys, defVal...)
+}
+
 
 func init() {
 	LoadConf("conf.yml")
