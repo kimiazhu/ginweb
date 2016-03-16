@@ -54,7 +54,7 @@ func AccessLog() gin.HandlerFunc {
 		comment := c.Errors.ByType(gin.ErrorTypePrivate).String()
 
 		log.Access(fmt.Sprintf("%v | %s  %s %-7s %s | %s %3d %s | %13v | %s | %s",
-			start.Format("2006/01/02 15:04:05.999999999"),
+			start.Format("2006/01/02 15:04:05.000000000"),
 			methodColor, reset, method, path,
 			statusColor, statusCode, reset,
 			latency,
