@@ -1,4 +1,4 @@
-// Description: ginweb is light weight encapsulation of gin framework
+// Description: ginweb is light weight wrap of gin framework
 // Author: ZHU HAIHUA
 // Since: 2016-02-28 14:57
 package ginweb
