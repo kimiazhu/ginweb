@@ -28,7 +28,7 @@ func main() {
 
 后台启动app（供参考）：
 ```sh
-nohup ./appname > /dev/null 2>stderr.log &
+$> nohup ./appname > /dev/null 2>stderr.log &
 ```
 
 不停机重启服务（在在Unix/Linux/Mac）上能起作用：
