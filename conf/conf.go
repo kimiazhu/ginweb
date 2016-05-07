@@ -46,7 +46,7 @@ func (c *Config) Ext(keys string, defaultVal... interface{}) (interface{}) {
 }
 
 func (c *Config) ExtString(keys string, defaultVal... interface{}) (string) {
-	return c.Ext(keys, defaultVal...).(string)
+	return fmt.Sprintf("%v", c.Ext(keys, defaultVal...))
 }
 
 func (c *Config) ExtInt(keys string, defaultVal... interface{}) (int) {
