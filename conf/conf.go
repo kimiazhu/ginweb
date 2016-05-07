@@ -93,10 +93,15 @@ func (c *Config) ExtSep(keys, sep string) (interface{}, error) {
 		if !success {
 			return "", fmt.Errorf("no such key: %v", k)
 		} else if isFinal {
-			return result, nil
+			break
 		}
 	}
-	return "", fmt.Errorf("not found")
+
+	if success {
+		return result, nil
+	} else {
+		return "", fmt.Errorf("not found")
+	}
 }
 
 func find(v interface{}, key interface{}) (result interface{}, isFinal, success bool) {
