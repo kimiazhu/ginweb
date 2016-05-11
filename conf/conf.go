@@ -108,11 +108,9 @@ func find(v interface{}, key interface{}) (result interface{}, isFinal, success 
 	switch m := v.(type) {
 	case map[string]interface{}:
 		result, success = m[key.(string)]
-		//success = true
 		isFinal = (reflect.TypeOf(result) != nil && reflect.TypeOf(result).Kind() != reflect.Map)
 	case map[interface{}]interface{}:
 		result, success = m[key]
-		//success = true
 		isFinal = (reflect.TypeOf(result) != nil && reflect.TypeOf(result).Kind() != reflect.Map)
 	}
 	return
