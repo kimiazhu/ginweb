@@ -34,7 +34,7 @@ type Config struct {
 // will raise a panic!
 func (c *Config) Ext(keys string, defaultVal... interface{}) (interface{}) {
 	r, e := c.ExtSep(keys, ".")
-	if e != nil {
+	if e != nil || r == nil {
 		if len(defaultVal) > 0 {
 			return defaultVal[0]
 		} else {
@@ -107,12 +107,12 @@ func (c *Config) ExtSep(keys, sep string) (interface{}, error) {
 func find(v interface{}, key interface{}) (result interface{}, isFinal, success bool) {
 	switch m := v.(type) {
 	case map[string]interface{}:
-		result = m[key.(string)]
-		success = true
+		result, success = m[key.(string)]
+		//success = true
 		isFinal = (reflect.TypeOf(result) != nil && reflect.TypeOf(result).Kind() != reflect.Map)
 	case map[interface{}]interface{}:
-		result = m[key]
-		success = true
+		result, success = m[key]
+		//success = true
 		isFinal = (reflect.TypeOf(result) != nil && reflect.TypeOf(result).Kind() != reflect.Map)
 	}
 	return
