@@ -16,7 +16,7 @@ gin本身已经相当灵活,但是由于项目中有一些模块是我们必须�
 func main() {
     r := ginweb.New()
     
-    router.GET("/welcome", func(c *gin.Context) {
+    r.GET("/welcome", func(c *gin.Context) {
         firstname := c.DefaultQuery("firstname", "Guest")
         lastname := c.Query("lastname")
         c.String(http.StatusOK, "Hello %s %s", firstname, lastname)
