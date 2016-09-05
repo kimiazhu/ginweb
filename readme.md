@@ -38,3 +38,5 @@ $> pgrep appname | xargs kill -HUP
 ```
 
 ### TODO:
+
+1. Portable模式, 支持内嵌conf.yml文件和log4go.xml文件, 构建时将生成一个唯一的一个可执行文件, 单个文件更便于分发。
