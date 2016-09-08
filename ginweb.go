@@ -37,6 +37,10 @@ func New() *gin.Engine {
 	return g
 }
 
+func NewGinweb() *Ginweb {
+	return &Ginweb{ New() }
+}
+
 func RegisterComponent(name string, config interface{}, initialize func(config interface{}) (error))  {
 	components = append(components, component{name, config, initialize, 0, 0})
 }
@@ -49,6 +53,11 @@ func RegisterComponentScheduler(name string, initialize func(config interface{})
 func Run(port string, engin *gin.Engine) {
 	initCompOnce.Do(initialize)
 	server.Start(":"+port, engin)
+}
+
+func (ginweb *Ginweb) Run(port string) {
+	initCompOnce.Do(initialize)
+	server.Start(":"+port, ginweb.Engine)
 }
 
 // initialize used to init all components before the app start
