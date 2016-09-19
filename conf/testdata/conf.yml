@@ -7,9 +7,9 @@ server:
 
 database:
   host: 42.62.96.68
-  name: tako
-  user: tako
-  password: tako
+  name: sampledb
+  user: kc
+  password: "ksec"
   ext:
     maxIdle: 10
 

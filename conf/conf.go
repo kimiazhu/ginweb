@@ -12,20 +12,31 @@ import (
 	"reflect"
 )
 
+type Database struct {
+	HOST     string	 	            `yaml:"host"`
+	NAME     string	 	            `yaml:"name"`
+	USER     string	 	            `yaml:"user"`
+	PASSWORD string	 	            `yaml:"password"`
+	EXT      map[string]interface{} `yaml:",flow"`
+}
+
 type Config struct {
 	SERVER struct {
 		RUNMODE string `yaml:runmode`
 		PORT    string `yaml:"port"`
 	}
 
-	DATABASE struct {
-		HOST     string `yaml:"host"`
-		NAME     string `yaml:"name"`
-		USER     string `yaml:"user"`
-		PASSWORD string `yaml:"password"`
-	}
+	DATABASE *Database `yaml:"database,flow"`
 
 	EXT map[string]interface{} `yaml:"ext,flow"`
+}
+
+// Get value of given key of Database section.
+func (d *Database) Ext(key string) interface{} {
+	if v, exist := d.EXT[key]; exist {
+		return v
+	}
+	return ""
 }
 
 // Ext will return the value of the EXT config, the keys is a string
@@ -177,7 +188,6 @@ func ExtFloat32(keys string, defVal... interface{}) float32 {
 func ExtFloat64(keys string, defVal... interface{}) float64 {
 	return Conf.ExtFloat64(keys, defVal...)
 }
-
 
 func init() {
 	LoadConf("conf.yml")
