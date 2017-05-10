@@ -65,19 +65,19 @@ func (c *Config) ExtInt(keys string, defaultVal... interface{}) (int) {
 }
 
 func (c *Config) ExtInt8(keys string, defaultVal... interface{}) (int8) {
-	return c.Ext(keys, defaultVal...).(int8)
+	return int8(c.Ext(keys, defaultVal...).(int))
 }
 
 func (c *Config) ExtInt16(keys string, defaultVal... interface{}) (int16) {
-	return c.Ext(keys, defaultVal...).(int16)
+	return int16(c.Ext(keys, defaultVal...).(int))
 }
 
 func (c *Config) ExtInt32(keys string, defaultVal... interface{}) (int32) {
-	return c.Ext(keys, defaultVal...).(int32)
+	return int32(c.Ext(keys, defaultVal...).(int))
 }
 
 func (c *Config) ExtInt64(keys string, defaultVal... interface{}) (int64) {
-	return c.Ext(keys, defaultVal...).(int64)
+	return int64(c.Ext(keys, defaultVal...).(int))
 }
 
 func (c *Config) ExtBool(keys string, defaultVal... interface{}) (bool) {
