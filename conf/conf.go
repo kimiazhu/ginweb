@@ -10,6 +10,7 @@ import (
 	"os"
 	"strings"
 	"reflect"
+	"time"
 )
 
 type Database struct {
@@ -90,6 +91,12 @@ func (c *Config) ExtFloat64(keys string, defaultVal... interface{}) (float64) {
 
 func (c *Config) ExtFloat32(keys string, defaultVal... interface{}) (float32) {
 	return c.Ext(keys, defaultVal...).(float32)
+}
+
+func (c *Config) ExtDuration(keys string, defaultVal... interface{}) (time.Duration) {
+	str := fmt.Sprintf("%v", c.Ext(keys, defaultVal...))
+	t, _ := time.ParseDuration(str)
+	return t
 }
 
 // Ext will return the value of the EXT config, the keys is separated
@@ -187,6 +194,11 @@ func ExtFloat32(keys string, defVal... interface{}) float32 {
 // ExtFloat64 is a shorcut for (c *Config) ExtFloat64()
 func ExtFloat64(keys string, defVal... interface{}) float64 {
 	return Conf.ExtFloat64(keys, defVal...)
+}
+
+// ExtDuration is a shorcut for (c *Config) ExtDuration()
+func ExtDuration(keys string, defVal... interface{}) time.Duration {
+	return Conf.ExtDuration(keys, defVal...)
 }
 
 func init() {
