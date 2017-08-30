@@ -33,10 +33,15 @@ type Config struct {
 }
 
 // Get value of given key of Database section.
-func (d *Database) Ext(key string) interface{} {
+func (d *Database) Ext(key string, defaultVal... interface{}) interface{} {
 	if v, exist := d.EXT[key]; exist {
 		return v
 	}
+
+	if len(defaultVal) > 0 {
+		return defaultVal[0]
+	}
+
 	return ""
 }
 
