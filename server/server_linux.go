@@ -15,6 +15,9 @@ func init() {
 type serverLinux struct {
 }
 
-func (s *serverLinux) Run(addr string, handler http.Handler) {
+func (s *serverLinux) Run(addr string, handler http.Handler, args ...interface{}) {
+	if len(args) > 0 {
+		endless.DefaultHammerTime = args[0].(time.Duration)
+	}
 	endless.ListenAndServe(addr, handler)
 }

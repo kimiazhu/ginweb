@@ -50,14 +50,16 @@ func RegisterComponentScheduler(name string, initialize func(config interface{})
 	components = append(components, component{name, config, initialize, delay, interval})
 }
 
-func Run(port string, engin *gin.Engine) {
+// args[0]: type time.Duration as the DefaultHammerTime of endless, will be ignore on Windows
+func Run(port string, engin *gin.Engine, args ...interface{}) {
 	initCompOnce.Do(initialize)
-	server.Start(":"+port, engin)
+	server.Start(":"+port, engin, args...)
 }
 
-func (ginweb *Ginweb) Run(port string) {
+// args[0]: type time.Duration as the DefaultHammerTime of endless, will be ignore on Windows
+func (ginweb *Ginweb) Run(port string, args ...interface{}) {
 	initCompOnce.Do(initialize)
-	server.Start(":"+port, ginweb.Engine)
+	server.Start(":"+port, ginweb.Engine, args...)
 }
 
 // initialize used to init all components before the app start

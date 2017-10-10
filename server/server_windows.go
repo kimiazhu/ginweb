@@ -15,6 +15,6 @@ func init() {
 type serverWin struct {
 }
 
-func (s *serverWin) Run(addr string, handler http.Handler) {
+func (s *serverWin) Run(addr string, handler http.Handler, args ...interface{}) {
 	handler.(*gin.Engine).Run(addr)
 }

@@ -6,6 +6,7 @@ package server
 import (
 	"github.com/fvbock/endless"
 	"net/http"
+	"time"
 )
 
 func init() {
@@ -15,6 +16,9 @@ func init() {
 type serverDarwin struct {
 }
 
-func (s *serverDarwin) Run(addr string, handler http.Handler) {
+func (s *serverDarwin) Run(addr string, handler http.Handler, args ...interface{}) {
+	if len(args) > 0 {
+		endless.DefaultHammerTime = args[0].(time.Duration)
+	}
 	endless.ListenAndServe(addr, handler)
 }
