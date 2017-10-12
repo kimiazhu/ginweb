@@ -6,6 +6,7 @@ package conf
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/kimiazhu/ginweb/conf"
 	log "github.com/kimiazhu/log4go"
 	"time"
 )
@@ -19,6 +20,8 @@ var (
 	magenta = string([]byte{27, 91, 57, 55, 59, 52, 53, 109})
 	cyan    = string([]byte{27, 91, 57, 55, 59, 52, 54, 109})
 	reset   = string([]byte{27, 91, 48, 109})
+
+	withColor = conf.ExtBool("logColor", false)
 )
 
 func ErrorLoggerT(typ gin.ErrorType) gin.HandlerFunc {
@@ -53,14 +56,24 @@ func AccessLog() gin.HandlerFunc {
 		methodColor := colorForMethod(method)
 		comment := c.Errors.ByType(gin.ErrorTypePrivate).String()
 
-		log.Access(fmt.Sprintf("%v | %s  %s %-7s %s | %s %3d %s | %13v | %s | %s",
-			start.Format("2006/01/02 15:04:05.000000000"),
-			methodColor, reset, method, path,
-			statusColor, statusCode, reset,
-			latency,
-			clientIP,
-			comment,
-		))
+		if !withColor {
+			log.Access(fmt.Sprintf("%-7s %s | %3d | %13dns | %s | %s",
+				method, path,
+				statusCode,
+				latency,
+				clientIP,
+				comment,
+			))
+		} else {
+			log.Access(fmt.Sprintf("%v | %s  %s %-7s %s | %s %3d %s | %13v | %s | %s",
+				start.Format("2006/01/02 15:04:05.000000000"),
+				methodColor, reset, method, path,
+				statusColor, statusCode, reset,
+				latency,
+				clientIP,
+				comment,
+			))
+		}
 	}
 }
 
